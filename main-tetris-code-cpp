@@ -2,7 +2,7 @@
 #include <cmath>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-//use this link to obtain the latest version of the SFML library
+
 
 using namespace sf;
 using namespace std;
