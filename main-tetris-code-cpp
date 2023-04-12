@@ -6,180 +6,11 @@
 
 using namespace sf;
 using namespace std;
+void drawboard();
 
 int main() {
-
-
-  //------------------------------------------------------- Window/Border/Text
-
-  // set window size
-  const int window_width = 900;
-  const int window_height = 700;
-
-  // sets border size
-  const int borders_width = 383;
-  const int borders_height = 700;
-
-  // Creates the window environment
-  sf::RenderWindow window(sf::VideoMode(window_width, window_height), "TETRIS");
-
-
-  //Credit to Pixesia Studio for the font
-  // Inserts specialized font using link
-  sf::Font font;
-  if(!font.loadFromFile("C:/Users/hoyen/CLionProjects/HelloSFML/SpeedrushRegular.otf"))
-  { //https://www.fontspace.com/speed-rush-font-f71421 //links font
-      cout << "Error while loading font" << endl;
-  } // loads font
-
-  // Sets the special font to the assigned string
-  sf::Text score;
-  score.setFont(font); // applies the font
-  score.setString("Score: 0");
-  score.setCharacterSize(60); // sets size
-  score.setPosition(500, 425); // sets position
-
-
-
-  //------------------------------------------------------- Logo/Block Background/Main Background
-
-
-
-  // Loads in logo.png from files
-  sf::Texture LogoTex;
-  if(!LogoTex.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/logo.png")) {
-      cout << "Could not load Tetris Logo." << endl;
-      return -1;
-  } // loads logo.png
-
-  // creates an environment to apply logo.png
-  sf::Sprite LogoSpr;
-  LogoSpr.setTexture(LogoTex); // applies logo.png
-  LogoSpr.setScale(sf::Vector2f(.3,.3)); // sets size
-  LogoSpr.setPosition(sf::Vector2f(430,75)); // sets position
-
-
-  // Loads in blueboxBG.jpg from files
-  sf::Texture BoxTex;
-  if(!BoxTex.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/blueboxBG.jpg")) {
-      cout << "Could not load Box Background." << endl;
-      return -1;
-  }
-
-  // creates an environment to apply blueboxBG.jpg
-  sf::Sprite BoxSpr;
-  BoxSpr.setTexture(BoxTex); // applies blueboxBG.jpg
-  BoxSpr.setScale(sf::Vector2f(.8,.7)); // sets the rendered image size
-  BoxSpr.setOrigin(0,0); // sets the origin/beginning point on the rendered blueboxBG.jpg
-  BoxSpr.setPosition(sf::Vector2f(375,0));
-  BoxSpr.setRotation(90); // rotates the image
-
-
-  // Loads in Plane.png
-  sf::Texture PlaneTex;
-  if(!PlaneTex.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/Plane.png")) {
-      cout << "Could not load Main Background." << endl;
-      return -1;
-  }
-
-  // creates an environment to apply Plane.png
-  sf::Sprite PlaneSpr;
-  PlaneSpr.setTexture(PlaneTex); // applies Plane.png
-  PlaneSpr.setScale(sf::Vector2f(1,1));
-  PlaneSpr.setOrigin(0,0);
-  PlaneSpr.setPosition(sf::Vector2f(360,0));
-
-
-  //------------------------------------------------------- Loading & Rendering Sprites/Images
-
-
-  // Loads border_blocks.png from files
-  sf::Texture BorderBlocks;
-  if(!BorderBlocks.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/border_blocks.png")) {
-      cout << "Could not load Box Background." << endl;
-      return -1;
-  }
-
-
-  // creates environment for a subdivision BorderTop1Spr of BorderBlocks
-  sf::Sprite BorderTop1Spr;
-  BorderTop1Spr.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderTop1Spr.setScale(sf::Vector2f(.3,.3));
-  BorderTop1Spr.setOrigin(0,0);
-  BorderTop1Spr.setPosition(sf::Vector2f(260,0));
-  BorderTop1Spr.setRotation(90); // rotates image
-
-  // creates environment for a subdivision BorderTop2Spr of BorderBlocks
-  sf::Sprite BorderTop2Spr;
-  BorderTop2Spr.setTexture(BorderBlocks); // apples border_blocks.png
-  BorderTop2Spr.setScale(sf::Vector2f(.3,.3));
-  BorderTop2Spr.setOrigin(0,0);
-  BorderTop2Spr.setPosition(sf::Vector2f(380,0));
-  BorderTop2Spr.setRotation(90); // rotates image
-
-  // creates environment for a subdivision BorderLeft1Spr of BorderBlocks
-  sf::Sprite BorderLeft1;
-  BorderLeft1.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderLeft1.setScale(sf::Vector2f(.3,.3));
-  BorderLeft1.setOrigin(0,0);
-  BorderLeft1.setPosition(sf::Vector2f(380,280));
-  BorderLeft1.setRotation(180); // rotates image
-
-  // creates environment for a subdivision BorderLeft2Spr of BorderBlocks
-  sf::Sprite BorderLeft2;
-  BorderLeft2.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderLeft2.setScale(sf::Vector2f(.3,.3));
-  BorderLeft2.setOrigin(0,0);
-  BorderLeft2.setPosition(sf::Vector2f(380,540));
-  BorderLeft2.setRotation(180);
-
-  // creates environment for a subdivision BorderLeft3Spr of BorderBlocks
-  sf::Sprite BorderLeft3;
-  BorderLeft3.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderLeft3.setScale(sf::Vector2f(.3,.3));
-  BorderLeft3.setOrigin(0,0);
-  BorderLeft3.setPosition(sf::Vector2f(380,750));
-  BorderLeft3.setRotation(180); // rotates image
-
-  // creates environment for a subdivision BorderBottom1Spr of BorderBlocks
-  sf::Sprite BorderBottom1;
-  BorderBottom1.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderBottom1.setScale(sf::Vector2f(.3,.3));
-  BorderBottom1.setOrigin(0,0);
-  BorderBottom1.setPosition(sf::Vector2f(122,701));
-  BorderBottom1.setRotation(270); // rotates image
-
-  // creates environment for a subdivision BorderBottom2Spr of BorderBlocks
-  sf::Sprite BorderBottom2;
-  BorderBottom2.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderBottom2.setScale(sf::Vector2f(.3,.3));
-  BorderBottom2.setOrigin(0,0);
-  BorderBottom2.setPosition(sf::Vector2f(1,701));
-  BorderBottom2.setRotation(270); // rotates image
-
-  // creates environment for a subdivision BorderRight1Spr of BorderBlocks
-  sf::Sprite BorderRight1;
-  BorderRight1.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderRight1.setScale(sf::Vector2f(.3,.3));
-  BorderRight1.setOrigin(0,0);
-  BorderRight1.setPosition(sf::Vector2f(1,425));
-
-  // creates environment for a subdivision BorderRight2Spr of BorderBlocks
-  sf::Sprite BorderRight2;
-  BorderRight2.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderRight2.setScale(sf::Vector2f(.3,.3));
-  BorderRight2.setOrigin(0,0);
-  BorderRight2.setPosition(sf::Vector2f(1,260));
-
-  // creates environment for a subdivision BorderRight3Spr of BorderBlocks
-  sf::Sprite BorderRight3;
-  BorderRight3.setTexture(BorderBlocks); // applies border_blocks.png
-  BorderRight3.setScale(sf::Vector2f(.3,.3));
-  BorderRight3.setOrigin(0,0);
-  BorderRight3.setPosition(sf::Vector2f(1,0));
-
-
-
+  //draw border
+  drawboard();
   //------------------------------------------------------- Sprites
 
   // each point represents a corner or line intersection
@@ -654,27 +485,6 @@ int main() {
 
 
 
-      window.draw(border1); // draws the colored borders
-      window.draw(border2);
-      window.draw(border3);
-      window.draw(border4);
-      window.draw(PlaneSpr); // draws the main background
-      window.draw(*shape[i]); // draws the different shapes
-      window.draw(BorderRight1); // draws the block borders
-      window.draw(BorderRight2);
-      window.draw(BorderRight3);
-      window.draw(BorderLeft1);
-      window.draw(BorderLeft2);
-      window.draw(BorderLeft3);
-      window.draw(BorderTop1Spr);
-      window.draw(BorderTop2Spr);
-      window.draw(BorderBottom1);
-      window.draw(BorderBottom2);
-      window.draw(score); // draws the score string with the font
-      window.draw(LogoSpr); // draws the logo
-
-
-
       //------------------------------------------------------- Collision Code
 
 
@@ -935,4 +745,192 @@ int main() {
   }
 
   return 0;
+  }
+  void drawboard(){
+     //------------------------------------------------------- Window/Border/Text
+
+  // set window size
+  const int window_width = 900;
+  const int window_height = 700;
+
+  // sets border size
+  const int borders_width = 383;
+  const int borders_height = 700;
+
+  // Creates the window environment
+  sf::RenderWindow window(sf::VideoMode(window_width, window_height), "TETRIS");
+
+
+  //Credit to Pixesia Studio for the font
+  // Inserts specialized font using link
+  sf::Font font;
+  if(!font.loadFromFile("C:/Users/hoyen/CLionProjects/HelloSFML/SpeedrushRegular.otf"))
+  { //https://www.fontspace.com/speed-rush-font-f71421 //links font
+      cout << "Error while loading font" << endl;
+  } // loads font
+
+  // Sets the special font to the assigned string
+  sf::Text score;
+  score.setFont(font); // applies the font
+  score.setString("Score: 0");
+  score.setCharacterSize(60); // sets size
+  score.setPosition(500, 425); // sets position
+
+
+
+  //------------------------------------------------------- Logo/Block Background/Main Background
+
+
+
+  // Loads in logo.png from files
+  sf::Texture LogoTex;
+  if(!LogoTex.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/logo.png")) {
+      cout << "Could not load Tetris Logo." << endl;
+      return -1;
+  } // loads logo.png
+
+  // creates an environment to apply logo.png
+  sf::Sprite LogoSpr;
+  LogoSpr.setTexture(LogoTex); // applies logo.png
+  LogoSpr.setScale(sf::Vector2f(.3,.3)); // sets size
+  LogoSpr.setPosition(sf::Vector2f(430,75)); // sets position
+
+
+  // Loads in blueboxBG.jpg from files
+  sf::Texture BoxTex;
+  if(!BoxTex.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/blueboxBG.jpg")) {
+      cout << "Could not load Box Background." << endl;
+      return -1;
+  }
+
+  // creates an environment to apply blueboxBG.jpg
+  sf::Sprite BoxSpr;
+  BoxSpr.setTexture(BoxTex); // applies blueboxBG.jpg
+  BoxSpr.setScale(sf::Vector2f(.8,.7)); // sets the rendered image size
+  BoxSpr.setOrigin(0,0); // sets the origin/beginning point on the rendered blueboxBG.jpg
+  BoxSpr.setPosition(sf::Vector2f(375,0));
+  BoxSpr.setRotation(90); // rotates the image
+
+
+  // Loads in Plane.png
+  sf::Texture PlaneTex;
+  if(!PlaneTex.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/Plane.png")) {
+      cout << "Could not load Main Background." << endl;
+      return -1;
+  }
+
+  // creates an environment to apply Plane.png
+  sf::Sprite PlaneSpr;
+  PlaneSpr.setTexture(PlaneTex); // applies Plane.png
+  PlaneSpr.setScale(sf::Vector2f(1,1));
+  PlaneSpr.setOrigin(0,0);
+  PlaneSpr.setPosition(sf::Vector2f(360,0));
+
+
+  //------------------------------------------------------- Loading & Rendering Sprites/Images
+
+
+  // Loads border_blocks.png from files
+  sf::Texture BorderBlocks;
+  if(!BorderBlocks.loadFromFile("C:/Users/khang/CLionProjects/HelloSFML/border_blocks.png")) {
+      cout << "Could not load Box Background." << endl;
+      return -1;
+  }
+
+
+  // creates environment for a subdivision BorderTop1Spr of BorderBlocks
+  sf::Sprite BorderTop1Spr;
+  BorderTop1Spr.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderTop1Spr.setScale(sf::Vector2f(.3,.3));
+  BorderTop1Spr.setOrigin(0,0);
+  BorderTop1Spr.setPosition(sf::Vector2f(260,0));
+  BorderTop1Spr.setRotation(90); // rotates image
+
+  // creates environment for a subdivision BorderTop2Spr of BorderBlocks
+  sf::Sprite BorderTop2Spr;
+  BorderTop2Spr.setTexture(BorderBlocks); // apples border_blocks.png
+  BorderTop2Spr.setScale(sf::Vector2f(.3,.3));
+  BorderTop2Spr.setOrigin(0,0);
+  BorderTop2Spr.setPosition(sf::Vector2f(380,0));
+  BorderTop2Spr.setRotation(90); // rotates image
+
+  // creates environment for a subdivision BorderLeft1Spr of BorderBlocks
+  sf::Sprite BorderLeft1;
+  BorderLeft1.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderLeft1.setScale(sf::Vector2f(.3,.3));
+  BorderLeft1.setOrigin(0,0);
+  BorderLeft1.setPosition(sf::Vector2f(380,280));
+  BorderLeft1.setRotation(180); // rotates image
+
+  // creates environment for a subdivision BorderLeft2Spr of BorderBlocks
+  sf::Sprite BorderLeft2;
+  BorderLeft2.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderLeft2.setScale(sf::Vector2f(.3,.3));
+  BorderLeft2.setOrigin(0,0);
+  BorderLeft2.setPosition(sf::Vector2f(380,540));
+  BorderLeft2.setRotation(180);
+
+  // creates environment for a subdivision BorderLeft3Spr of BorderBlocks
+  sf::Sprite BorderLeft3;
+  BorderLeft3.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderLeft3.setScale(sf::Vector2f(.3,.3));
+  BorderLeft3.setOrigin(0,0);
+  BorderLeft3.setPosition(sf::Vector2f(380,750));
+  BorderLeft3.setRotation(180); // rotates image
+
+  // creates environment for a subdivision BorderBottom1Spr of BorderBlocks
+  sf::Sprite BorderBottom1;
+  BorderBottom1.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderBottom1.setScale(sf::Vector2f(.3,.3));
+  BorderBottom1.setOrigin(0,0);
+  BorderBottom1.setPosition(sf::Vector2f(122,701));
+  BorderBottom1.setRotation(270); // rotates image
+
+  // creates environment for a subdivision BorderBottom2Spr of BorderBlocks
+  sf::Sprite BorderBottom2;
+  BorderBottom2.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderBottom2.setScale(sf::Vector2f(.3,.3));
+  BorderBottom2.setOrigin(0,0);
+  BorderBottom2.setPosition(sf::Vector2f(1,701));
+  BorderBottom2.setRotation(270); // rotates image
+
+  // creates environment for a subdivision BorderRight1Spr of BorderBlocks
+  sf::Sprite BorderRight1;
+  BorderRight1.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderRight1.setScale(sf::Vector2f(.3,.3));
+  BorderRight1.setOrigin(0,0);
+  BorderRight1.setPosition(sf::Vector2f(1,425));
+
+  // creates environment for a subdivision BorderRight2Spr of BorderBlocks
+  sf::Sprite BorderRight2;
+  BorderRight2.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderRight2.setScale(sf::Vector2f(.3,.3));
+  BorderRight2.setOrigin(0,0);
+  BorderRight2.setPosition(sf::Vector2f(1,260));
+
+  // creates environment for a subdivision BorderRight3Spr of BorderBlocks
+  sf::Sprite BorderRight3;
+  BorderRight3.setTexture(BorderBlocks); // applies border_blocks.png
+  BorderRight3.setScale(sf::Vector2f(.3,.3));
+  BorderRight3.setOrigin(0,0);
+  BorderRight3.setPosition(sf::Vector2f(1,0));
+  
+  window.draw(border1); // draws the colored borders
+      window.draw(border2);
+      window.draw(border3);
+      window.draw(border4);
+      window.draw(PlaneSpr); // draws the main background
+      window.draw(*shape[i]); // draws the different shapes
+      window.draw(BorderRight1); // draws the block borders
+      window.draw(BorderRight2);
+      window.draw(BorderRight3);
+      window.draw(BorderLeft1);
+      window.draw(BorderLeft2);
+      window.draw(BorderLeft3);
+      window.draw(BorderTop1Spr);
+      window.draw(BorderTop2Spr);
+      window.draw(BorderBottom1);
+      window.draw(BorderBottom2);
+      window.draw(score); // draws the score string with the font
+      window.draw(LogoSpr); // draws the logo
   }
