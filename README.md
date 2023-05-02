@@ -9,9 +9,19 @@ https://github.com/phanandco/security-project-code-copy/commit/b50fce2e8eaae9bc0
 https://github.com/itsmekhang/security-project-code/pull/3
    This SVC is a pull request of changes and improvements made to the previous version. A pull prequest is just one of the alternative ways to obtain a version control system. It can ensures to highlight the changes made without making changes to the original version.
 
+Fix 4: using namespace std is removed
+By including "using namespace std", you declare all namespace as global. Including using namespace std in the header is limited to the function or class scope.
+
+Fix 5: Redeclared different shapes as entity classes. Declaring classes allows data encasulation, follows Oject Oriented Programming practices, improve tracibility and maintainability withion the code. Declaring classes controls access to data and functions, that could result in unwanted alterations to sensitive information.
+
+Fix 6: Implement of smart pointers that would potentially eliminate bound issues. Improve memory allocation and deallocation. Smart pointers eliminate memory leaks.
+
 ## Next 4 items to be attempted
 - Two-factor authentication when accessing the repository. Difficulty: Easy Priority: Medium
 - Implement encryption methods to perform commits. Difficulty: Moderate Priority: Mediium
 - User error input logging will be implemented. Difficulty: Moderate Priority: Low
 - Local version system control will be implemented. Difficulty: Hard Priority: Low
+
+
+
 
